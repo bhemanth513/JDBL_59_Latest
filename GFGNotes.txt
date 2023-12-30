@@ -1,0 +1,1244 @@
+
+
+A class having single object is known as singalton class.
+In order to control resourses we use singalton class..
+
+
+Final:
+-------
+All the wrapper classes are final
+
+native-->which makes a network call to get to execute from the hardware
+ --> which generates by OS level libraries
+ 
+ 
+ Integer a = 10;
+ Integer b = 10;
+ sysout(a==b);
+ 
+ 
+Collections
+-----------
+
+memory location for array-> M(arr[0])+(i-1)*4
+
+ArrayList and array performance both are same almost..
+incase of memory management arraylist is best..
+
+inserting--
+deleting -- same
+	delete by value:O(n) for ArrayList,Array
+	delete by index: same as above
+	
+fetching --same
+updating -- same
+
+
+Set
+----
+inserting-- bestcase o(1) and worst case O(n)
+deleting --"
+fetching--"
+updating--"
+
+
+Ordered DS
+-------------
+list
+
+unOrdered DS
+------------
+Set,Map
+
+ 
+ whenever there are collisions in hasmap or hashset then your hashing alg is not upto the mark
+ 
+ insertion and fetcing is opposite in case of timing
+1) insertion in hashmap
+
+	step1-->hashcode of the key-- determines in which bucket we want to store the key..
+		if there are already some obj atored at that buckets..	
+			->incoming obj is equal to the already present obj in bucket then it will ignore
+			--> if it is different means when collisions
+					1st resolution--> linear or quadratic approach..
+					2nd resolution-->chaining which is LinkedList..
+2)fetching is O(n) for worst case 	
+	Hash->key ==> determining which bucket to go
+	
+	if there is single obj, we just select single obj
+	but if there are multiple objects, we will sleect ele in chain and check for equality
+	
+// 1. same hashcode, diff object >> collision
+// 2. same hashcode, same object >> duplication, incoming object will be overriding the existing one
+// 3. diff hashcode, same object >> new object, no collision
+// 4. diff hashcode, diff object >> new object, no collision
+
+
+
+equals from obect-->non-abstract
+in comparator--> it is abstract
+then in child it is again -> non abstract 
+-------------------------------
+
+parellelism--> if multiple threads are running at same time
+
+
+//thread.start() ->which will create on hardware
+
+//--> never use thread.run()
+//never start already started thread
+
+
+//Thread.currentThread() --> the method is from Thread class
+
+//whener multpple threads try to works on shared resources they should be allowed only few operations
+
+//allowing only once thread at critical section..is syncronization..
+
+If it may help people out here; here is a small writeup:
+Basically, while developing a project, that project might require many other module(like logging module, tomcat module, junit module etc...). now, if maven project management tool is not being used, it becomes a tedious job for the developer to download all these modules(dependencies) manually and set the classpath to point to the directory in which these modules are downloaded(so that, our project knows where to look for these libraries related to the downloaded modules). 
+
+now, when we use maven - all you have to do is to mention the details of which all modules(dependencies) you would require for developing your project; in the pom.xml file. and that is all; rest of the job of downloading them, setting up the classpath etc... is done by maven. so, life of the developer becomes easy
+
+this is just one of the features of maven. there are many other features of maven(like managing the lifecycle of the entire project) which makes building projects easier
+
+
+Maven maintains a central repository(mvnrepository.com) which has all the dependencies(and all related versions) where you can go and pick the dependency metadata. The developer can pick the dependency metadata from this repository and add it to your pom.xml file
+Once added; as mentioned earlier - the maven tool automatically downloads the dependency and configures it for us in the IDE
+
+
+
+
+Maven
+----------------------
+Task---> you need to create a table in sql db 
+
+Host, Port --> IP address of a machine
+
+
+
+communitaion
+
+application
+
+presentation
+
+session
+
+transport
+
+network layer
+
+data layer
+
+
+mysql -3306, postgre - 
+
+JDBC -which is used to connect JDBC application
+SMTP-
+FTP => file transfer protocal
+HTTP
+
+
+
+mysql 
+-----------
+Datatypes
+BigInt
+
+oracle
+----------
+varchar2
+only int 
+
+
+postgre
+------------
+
+
+
+Driver ---> rt.jar java/sql/connection.java{
+						
+						}
+
+JDK does not have db packages 
+
+
+
+
+
+Quick overview:
+1. Git hub - code repository
+
+2. Jenkins/(some build tool) - get code and generate deployable code(like jar)
+
+3. Maven repo - stores all the jars produced by build tool(in step#2)
+
+
+snapshot - in progress
+1.1 -> project is in stable state
+3.5.1 - snapshot
+
+
+Deployement
+------------
+1) change the version 
+2) push this change to remote repo
+3) after deploying, merge thiss change in master branch
+
+
+Sep30,oct 1st
+--------
+maven 
+----------
+group.id -->refers to an organization name
+artifact.id -> project name
+
+company--> Atlassian -> which maintianing jira,bitbucket,confluence,bambo hr..
+
+maven compatablitity knowing url
+
+https://maven.apache.org/download.cgi
+
+
+
+maven repo
+https://repo.maven.apache.org/maven2/
+
+
+
+for creating repo
+------------
+nexos
+jfrog
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Movie Review System
+----------------------------
+Project 1
+
+ShoutReview --> A movie review platform.
+
+Requirements:
+    a.	Search a movie by title
+    b.	Rate and add review for a movie
+    c.	Search a top 5 movie by genre
+
+
+Entity:
+    Movie:{
+        --Must to have
+        Id,
+        title,
+        genre,
+        rating,
+        <reviews>
+       -- Good to have
+        Release date
+        Length
+       -- Nice to have
+        Cast
+        }
+    Review: {
+       -- Must to have
+        Id,
+        movieTitle,
+        rating,
+        review
+      --  Good to have
+        Userid,
+        createdAt,
+        }
+
+Entity relation: One movie can contain many reviews  -> One to many relationship.
+
+
+APIs:
+    Admin:
+        addMovie ->POST  --> priority
+        updateMovie ->
+        deleteMovie ->
+    ..movie/
+    SearchByTitle -> GET
+        ../movie/:title
+    AddReview -> POST
+         ../review/
+    SearchByGenre -> GET
+         ../genre/:genre
+
+
+
+APIs:
+#Postman collection added in the root folder, import to use all apis.
+
+
+
+----------------------------------------------------------------------------------------
+application working
+
+sender -----------> reciever
+
+application			application						
+|					|
+presentation		presentation
+|					|
+session				session
+|					|
+transport			transport
+|					|
+network				network
+|					|
+Data link			Data link									
+| ----------------->physical layer
+
+
+
+//mysql --3306 default server port, 5432-postgre
+for dtaabase server we need host,port,username,password===
+	by default authentication is at the server level..we can also authenticate at daatabase level..
+	1. We will instll database sever in our machine then we can create a daatabase..
+	2. once you create a database we can create a table inside that..
+
+-->URL ->a databse url of the form jdbc:subprotocal:subname..
+	JDBC is nothing but a protocal using which we connect to any relational database through java application.
+		subprotocal --> the type of relational daatabase that you want to connect..
+	useful url: https://repo.maven.apache.org/maven2/
+	
+Maven uses XML file
+Graddle uses bat file
+
+--> Appache Ant is a software used to build a java application in intellij 
+
+--> IntelliJ has built in support for maven..
+	java 1.8 uses maven-3.9.1
+	--> to know the maven compatablitity version with java version we can check in official website..	 
+		https://maven.apache.org/download.cgi
+	
+SymLinks==>(:$) --> is very important to identify perticular java versions for perticular IDE's
+	EX: ${JAVA_HOME}/bin:${PATH}
+
+=> package name is analogous to group_id
+	className is analogous to artifact_id
+	
+what is the command to run code in your JVM? 
+	that you can find in the firstline of STS/IntelliJ editor while you run the code
+		EX: ==> "C:\Program Files\Java\jdk-19\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.2.3\lib\idea_rt.jar=52330:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.2.3\bin" -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath C:\Users\DELL\Downloads\demo-beans\demo-beans\target\classes;C:\Users\DELL\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.2.0\spring-boot-starter-web-3.2.0.jar;C:\Users\DELL\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.0\spring-boot-starter-3.2.0.jar;C:\Users\DELL\.m2\repository\org\springframework\boot\spring-boot\3.2.0\spring-boot-3.2.0.jar;C:\Users\DELL\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.0\spring-boot-autoconfigure-3.2.0.jar;C:\Users\DELL\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.0\spring-boot-starter-logging-3.2.0.jar;C:\Users\DELL\.m2\repository\ch\qos\logback\logback-classic\1.4.11\logback-classic-1.4.11.jar;C:\Users\DELL\.m2\repository\ch\qos\logback\logback-core\1.4.11\logback-core-1.4.11.jar;C:\Users\DELL\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\DELL\.m2\repository\org\apache\logging\log4j\log4j-api\2.21.1\log4j-api-2.21.1.jar;C:\Users\DELL\.m2\repository\org\slf4j\jul-to-slf4j\2.0.9\jul-to-slf4j-2.0.9.jar;C:\Users\DELL\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\DELL\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\DELL\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.2.0\spring-boot-starter-json-3.2.0.jar;C:\Users\DELL\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.3\jackson-databind-2.15.3.jar;C:\Users\DELL\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.3\jackson-annotations-2.15.3.jar;C:\Users\DELL\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.3\jackson-core-2.15.3.jar;C:\Users\DELL\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.15.3\jackson-datatype-jdk8-2.15.3.jar;C:\Users\DELL\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.15.3\jackson-datatype-jsr310-2.15.3.jar;C:\Users\DELL\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.15.3\jackson-module-parameter-names-2.15.3.jar;C:\Users\DELL\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.2.0\spring-boot-starter-tomcat-3.2.0.jar;C:\Users\DELL\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.16\tomcat-embed-core-10.1.16.jar;C:\Users\DELL\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.16\tomcat-embed-el-10.1.16.jar;C:\Users\DELL\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.16\tomcat-embed-websocket-10.1.16.jar;C:\Users\DELL\.m2\repository\org\springframework\spring-web\6.1.1\spring-web-6.1.1.jar;C:\Users\DELL\.m2\repository\org\springframework\spring-beans\6.1.1\spring-beans-6.1.1.jar;C:\Users\DELL\.m2\repository\io\micrometer\micrometer-observation\1.12.0\micrometer-observation-1.12.0.jar;C:\Users\DELL\.m2\repository\io\micrometer\micrometer-commons\1.12.0\micrometer-commons-1.12.0.jar;C:\Users\DELL\.m2\repository\org\springframework\spring-webmvc\6.1.1\spring-webmvc-6.1.1.jar;C:\Users\DELL\.m2\repository\org\springframework\spring-aop\6.1.1\spring-aop-6.1.1.jar;C:\Users\DELL\.m2\repository\org\springframework\spring-context\6.1.1\spring-context-6.1.1.jar;C:\Users\DELL\.m2\repository\org\springframework\spring-expression\6.1.1\spring-expression-6.1.1.jar;C:\Users\DELL\.m2\repository\org\slf4j\slf4j-api\2.0.9\slf4j-api-2.0.9.jar;C:\Users\DELL\.m2\repository\org\springframework\spring-core\6.1.1\spring-core-6.1.1.jar;C:\Users\DELL\.m2\repository\org\springframework\spring-jcl\6.1.1\spring-jcl-6.1.1.jar com.example.demobeans.DemoBeansApplication
+
+Maven dounloads the dependencies from central repo
+	i.e. from https://repo.maven.apache.org/maven2/ this website
+==> when you download the dependencies for the first time it will download from central repo..
+	And when you try to download second time it will take from local repo.
+Maven has 3 repositories..
+	1.Central Repository- public -which is accessible to everyone-open source
+	2.Local Repository- local Machine storage
+	2.Remote Repository-	private repositories..which are available in Web with some authentication. you have to provide URL and password for this.
+
+-->How does maven knows whether it needs to fetch from central or remote repo? or
+	How does maven scaans the pom.xml?
+	ANS: 	~/.m2/repository/..
+			~/.m2/settings.xml
+			
+		from POM.xml for each dependencies
+			if dependency found in local repo 
+				then it will stop scanning..
+			if not it will search in remote repo-	
+				if found then it adds to the local repo then it stops
+			if not it will search in central repo
+				if found then it adds to the local repo- then it stops.
+			finally if it not found anywhere then it will throw errors..
+
+--> one project dependencies can use in another project?
+	so basically all the dependencies usually available in local repo.. if it not available then it get from either remote or central repo..
+	if one dependency already present it will use it for multiple projects..
+	--> repositories are at global level
+	--> dependencies are at project level
+
+-->SNAPSHOT -inprogress
+--->1.1 --> project is in stable stage..
+
+when you do deployement
+	1. change the version in Version control(Github/gitlab)
+		ex: 2.4-SNAPSHOT to 2.4
+	2. push this jar to remote repository
+	3. after deploying, merge this change in the master branch.
+		2.4 -> 2.5 SNAPSHOT
+		
+		
+===Phases/LifeCycle of Maven===		
+		
+	==>maven has 3 folders in it
+		1.LifeCycle
+		-----------
+		--> all the phases in lifecycle are sequential
+			1.clean
+				when you do clean, it will deletes the target folder...so clean phase is responsible for that..
+				so that when you have issues while building your project which will delete the older target folder and installs new target folder..
+				CLEAN is a phase that you need to give explicitly..
+			2.validate 
+				It just validate whether you have pom.xml/ any other files required for the build to happen..
+			3.complie
+				Looks for all the compilation errors in src code
+			4.test
+				Used for executing unit/integration test casses..
+			5.package
+				Used for packaging your application in a jar file
+			6.verify
+				Similar to validate it just verifies whether you have jar file or not..
+			7.install
+				copies the jar and pom to the local maven repository
+			8.site
+				- related to remote repo-validates whether you have given remote repo URL,password.
+			9.deploy
+				Deployes the jar from local repo to remote repo
+				
+		2.Plugins
+			plugins are those things which helps in whenever your project is getting build
+			theseplugins are used by maven to function properly
+		3.Dependencies.
+
+		
+jfrog, nexus repo--popular for creating remote repositories
+
+==> Gaddle will also fetch from central repository of maven
+	resources: https://www.baeldung.com/gradle-run-java-main
+Maven best resources--
+https://www.baeldung.com/maven-guide
+
+https://maven.apache.org/developers/index.html
+
+
+API--Application Program Interface..
+	--> A way to communicate with other entities
+API contains request whcih has basic things like 
+	Base -URL -->www.google.com (Domain name)
+	API path -->/spring/tutorials
+	Request Params
+
+
+		
+API's
+----------
+--> Rest API's
+	--> Representational state transfer
+		 every request that is coming on to the server is having no state(stateless)
+			if one request is dependent on another request we will call it as stateful. 
+		restAPI's works based on JSON
+		--building restAPI's based on HTTP request-(protocal used to communicate between client and server over the internet)
+		
+		REST API conventions
+			1)HTTP methods/ request methods
+				GET  --> even if you are inserting data in the get method it will still work
+				POST
+				DELETE -->even if you are retrieving data in the delete method it will still work
+				PUT==> put will update something along with older values
+				DATA:{id:1,name:ABC,age:20}
+					EX: it's like==> update set p.age = ?,p.name = ? where id = ?
+				PATCH ==> which will useful incase when you want to update partial daata 
+						EX: update set p.age = ? where id = ?
+			2)You should not yes upppercase character in your api path
+			3) better to use hyphens instead of underscores in your api path 
+--> Soap API's
+	focus on the state of the user..
+		suno logic, logic hub are some companies working on soap 
+	SOAP API's works based on XML format for data transfer
+	
+	
+==> spring boot loggers
+	1st attribute is time of the server
+	2. logging level info
+	3.process id
+	4. [thread name] classname
+	
+	LOGGING LEVELS:
+	------------
+	ERROR--will be the more severe and minimum in number
+	WARN-- whenever there is some king of error which is less severe, code is going to be an unexpected block, enge casses which are not handled
+	INFO - logs which helps you for debugging your application logic.
+	DEBUG -logs which helps you for debugging your application logic+spring boot's internall working 
+	TRACE --will be the least severe and maximum in number(when ever you want to print the tiniest things for ex; heartbeats of an embedded system)
+	
+	
+	by default log level is INFO--so any logging level greater than severity than this will print in the console
+	so ERROR,WARN and INFO will go na print by default..
+	
+	if we want to print all the logging levels then we can set 
+		logging.level.root=trace
+		
+	we can do our own logging pattern by defining our customes log patterns
+	https://docs.spring.io/spring-boot/docs/2.1.8.RELEASE/reference/html/howto-logging.html
+	
+	logfile rotation
+	
+	https://stackoverflow.com/questions/57312048/springboot-how-to-rotate-log-files-on-the-server-restart
+	
+	
+	ionShutdownhook --> is a thread something that executes whenever you stop the application..
+	
+Spring Profiles
+-----------------
+spring.profiles.active=production
+
+rm --> to delete file
+rm -rf -> to recursively delete the files from the respectvi folder
+
+mvn clean package && java -jar target/*.jar --> this will help you build a jar as well as run it in the same command
+
+to run for perticular environment.. -->mvn clean package &&  java -Dspring.profiles.active=production java -jar target/*.jar 
+
+by default it will run on application.properties
+
+
+Execution flow of springbooot api
+--------------------------------
+==> tomcat server will starts first
+
+==> dispatcherServlet is responsible for taking incoming request from the frontend and it will decide to whic api it should execute 
+
+==>RequestMappingHandlerMapping
+
+RequestMappingHandlerMapping - responsible for mapping / redirecting the request to the correct function
+RequestResponseBodyMethodProcessor - responsible for converting the response to a given type which can be understood by client
+
+endUser (using frontend) -> dispatcherServlet (listening & mapping request to controller on a thread) -> controller ->
+						service(business logic)  -> repository ->
+			Model/Entity -> database -> traverse backward.     is this flow correcr?
+
+
+
+INVERSION OF CONTROL(IOC)
+---------------------
+
+All the classes which are having @component either directly or indirectly annotation on top of it, spring will create a object of that class on application start-up
+
+--@springBootApplication --> springBootConfiguration --> configuration --> Component (indirectly)
+--> vo etc/hosts
+
+--Shared Instance
+---------------------
+	-->it is creating an object which will share around multiple classes
+	-->singleton eans that only creates single object..
+	--> Bean --> an oject created by spring
+	creating object by spring boot will comes under the concept of inversion of control..
+then how we can use that spring created object
+
+DEPENEDENCY INJECTION
+---------------------
+	injecting dependency which is already created..
+	Injecting an object of a class which object is already created into another class is called as DI. 
+	
+IOC container --> is responsible for storing all the objects created by spring..it is also known as application context..
+DI we can hadle through @Autowired annotation--> this annotation wil tells spring not to create a new obect, instead get an obect from IOC container.
+
+@Autowired
+@value
+	both are works similar.. but @Autowired we will injecting the object dependency, @value injects the value dependency
+
+=> @autowired will only work at class level ... not at function level
+
+--> for service,controller,repository there will be single objects only created by spring and those will be useful for all the requests
+ 
+spring component with classes having parameters..that values we can pass by using @value by defining them in application.properties file..
+
+--> Injecting Dependencies using parameters --way 1
+--------------------------------------------------
+	@Autowired 
+	Person person;
+	
+	DBConnection(){
+		
+	}
+	
+	Note: whenever you load a dependencies as a parameter it doesn't work in the same way that your parameter initialization works in core java..
+	
+	
+---> Injecting Dependencies using constructor --way 2
+--------------------------------------------------------
+	when you have only oneconstructor in the class and you want pass another object parameter in that constructor then autowiring is not required at that time..
+	Example;;
+	--------
+	@component
+	class person{
+	...
+	}
+
+	class dbconection{
+		//constructor
+		dbconection(Person person)
+	} 
+
+
+	==> when you have multiple constructors with parameters then there will be an ambiguity for spring to which should i call..
+	in this case we have to autowire that constructor with @Autowired to tell spring to execute the specifi constructor of that class.
+
+	==> below example will execute constructor1 as it is having @Autowired on top of it..
+	==> if you don;t have autowire in both the constructors then an error will be thrown
+	Example;;
+	--------
+	@component
+	class person{
+	...
+	}
+
+	class dbconection{
+		//constructor1
+		@Autowired
+		dbconection(Person person);
+		
+		////constructor1
+		dbconection(Person person,@value("${jbdc.url}") String url);
+	} 
+
+
+---> Injecting Dependencies using setters --way 3
+	Way 3 we will not use more .. but we can use it whenever passing object parameter of another class is an optional
+=> generally way 1 and way2 we can use but way2 best in all the casses..
+	
+
+
+why do we have different annotations to create a bean?
+
+Reflections -you can access any element in the runtime using some functions-- so that you can check on runtime whether its a configuration class or 
+		whether it's a controller class..
+
+
+--> @RestController  //telling spring-boot to create a bean by adding the annotation at top of class
+
+--> spring boot allows function level annotation for creating bean
+
+--> if we want to create a annotation on our own we neeed Interceptors-is a class which has basic implemtatation for the required annotation..
+
+--> whenever you define a bean it needs to be included in configuration class which is having @Configuration annotation on top of it. 
+and if you put @component on top of it so @bean willl not work as expected.
+					@Configuration
+				public class DemoConfig {
+
+					private Logger logger = LoggerFactory.getLogger(DemoConfig.class);
+
+					@Bean //spring bean    ==> invoked on application start-up
+					public RestTemplate getTemplate(){
+						RestTemplate restTemplate = new RestTemplate();
+						logger.info("inside getTemplate: obj = {}", restTemplate);
+						return new RestTemplate();
+					}
+				}
+	--> @Configuration is internaly inheriting from @component
+	
+
+
+for singleton.. object will create in the application startup..when api call will execute on @Autowired it will work on samme object..
+==============
+-->Object after application startup with singalton
+	Creating shared instance of singleton bean 'getTemplate'
+	inside getTemplate: obj = org.springframework.web.client.RestTemplate@37b57b54
+
+-->object after api call
+	RestTemplate1 = org.springframework.web.client.RestTemplate@37b57b54
+	RestTemplate2 = org.springframework.web.client.RestTemplate@37b57b54
+
+
+for prototype;;
+=============
+-->Object after application startup with prototype
+
+	Creating shared instance of singleton bean 'sampleController'
+	inside getTemplate: obj = org.springframework.web.client.RestTemplate@1abfe081  =>sampleController
+	Creating shared instance of singleton bean 'sampleController2'
+	inside getTemplate: obj = org.springframework.web.client.RestTemplate@7942a854 =>sampleController2
+
+==> object after sampleController api call
+	RestTemplate1 = org.springframework.web.client.RestTemplate@1abfe081
+
+==> object after sampleController2 api call
+	RestTemplate2 = org.springframework.web.client.RestTemplate@7942a854
+
+prototype is a scope where the object is created whenever it required.
+
+prototype usecase -->
+B2B copmanies --> Google ->google docs, atlasian ->jira
+lets say company1 and company2 which uses jira==> then that means its single product using multiple copmanies --like singleton objects
+lets ssay company3 comes inro picture which requires jira product with some special features then jira software should create with new 
+object based on already existing one ==> like prototype
+
+example:
+
+ @Bean //spring bean    ==> invoked on application start-up
+    @Scope("singleton")
+    public RestTemplate getTemplate(){
+        RestTemplate restTemplate = new RestTemplate();
+        logger.info("inside getTemplate: obj = {}", restTemplate);
+        return restTemplate;
+	}
+
+
+	@Autowired
+    RestTemplate template;
+
+    @GetMapping("/test")
+    public String sayHello(){
+        //RestTemplate t = demoConfig.getTemplate(); //no null pointer exception
+        logger.info("RestTemplate1 = {}",template);
+        return "Hello World!";
+    }
+
+
+	@Autowired
+    RestTemplate template;
+
+    private Logger logger = LoggerFactory.getLogger(SampleController2.class);
+
+    @GetMapping("/test2")
+    public String sayHello(){
+        logger.info("RestTemplate2 = {}",template);
+        return "Hello World2!!";
+    }
+
+
+--------------------
+
+==> spring works based on XML formats
+==> sprinf bot works based on Annnotations which is mofe user friendlly..
+
+==> spring boot works on reflections..reflections is a java API whic basically checks
+
+The common annotations that are existing for every annotations are :::
+
+--> @Documented   ==> which is related to our Java Doc documentation
+--> @Retention()  ==> How long we need to retain a perticular annotation..befor it discarded..
+		RetentionPolicy.SOURCE ==> will discarded the annotation after compile
+				EX: @override, @suppresswarnings
+		RetentionPolicy.CLASS => the annotations will present in .class files also.. it is default retentionPolicy type is CLASS only..
+								when the bte code will run on JVM them this will discarded..
+						EX: @NotNull
+		RetentionPolicy.RUNTIME ==> this will never be discarded.. most of the annotations are nder RUNTIME only..
+				Ex: @RestController, @Component..
+--> @Target({ElementType.TYPE})  ==> target represent the scope of annotation like where we can define them...
+	example: @Bean has target as Method and other annotation type only -->@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+
+M2 or M3 ==> means M is a short for Milestone
+	==> once the development milestone was reached a single build is made that is called as M#.
+1.0.0 SNAPSHOT ==> those releases are built every day, replacing earlier snapshots of the same version.
+
+==> by default packaging is jar
+	jar --> name contains artifactid-versionNo.jar..
+	Jar => contains java files
+	War --> wave archive==> which contians java files and other type of files(required for frontend)
+==> we need to specify implecitly if you want war <packaging>war</packaging> then it willl create artifactid-versionNo.war.. 
+
+==> built tool: Maven, graddle
+--> mvnw.cmd --> when you want to change somethigng in your configuration. but we will deal with this mostly..
+
+==> spring-boot project when you create from spring.io --it will add 2 dependencies by default
+		1. spring-boot-starter
+		2. spring-boot-starter-test
+1. spring-boot-starter is a parent for lot of other dependencies
+	_web,_redis,_data-jpa etc..
+
+
+DEPENEDENY HIERARCHY
+---------------
+spring-boot-starter
+	-spring-boot
+		-spring-core
+			-spring-jcl
+	-Spring-boot-autoconfigure
+		-spring-boot
+
+we can restrict the annotation based on its scope as well..
+	ex: <scope>test</scope>
+
+==> when you define multiple embedded servers in pom...it will execute only one basedd on precedence
+		tomcat>jetti>undertow
+	==>appache is the creator of tomcat
+--> spring-boot is a framework which internaly uses the embedded server.
+==> -DskipTests = true --> to skip the test cassses when you want to run application which ignoring errors in test classes..
+	-D -> is to define a user property.
+	
+	
+
+REST API's DEMO
+-------------
+Input --passing input to the api's
+	1)query params --> the url is fixed and we will pass parameter in the form of key value(q=value)
+					means url is fixed and then your changing the parameters of that
+				--> the parameters which are added as an extra parameter 
+				Example: https://www.geeksforgeeks.org/explore?page=1&sortBy=submissions
+	2)path variables --> basically the information which changes the path.
+				--> params which added in the path itself
+	--> both are used t get the data from the url
+	--> we will use query params generally for the readability whenever we have url is long length
+	3)Request Body (accepts json data, basically a json format(key-value))
+		we can pass as many key-value pairs as you want 
+		-> this request body will not come in the url --> so we will use this request body basically to pass parameters when we have more in number
+		
+--> which ds we should use for storing employee info..
+	//hashmap --we should querying based on employeeId,, then this wil be good choice 
+	--> we can't use list -search will be costly
+	
+--> Disadvantages if you are storing data in memory..
+	--> memory overflow if data is very large
+	--> difficult to query at different attributes	
+	-->Volatility(on restarting data will be lost)
+	--> Inconsistency--in distributed systems
+	
+//lombok annotations(improve productivity)
+	By usng Builder we can pass any values to it(it's like a whenever we need to pass only specific parameters/all parameters  to the constructor)
+	Builder is created as a static inner class for that class
+		EX.. if Employee is a class then builder will create EmployeeBuilder static inner class by default. 
+		Example
+		------
+			return Employee.builder() // getting the reference of employeeBuilder class
+                .name(this.name) // does not return void, it returns an employeeBuilder
+                .age(this.age) // calling the functions of employeeBuilder which returns an object of employeeBuilder
+                .address(this.address)
+                .department(this.department)
+                .createdOn(System.currentTimeMillis())
+                .updatedOn(System.currentTimeMillis())
+                .id(UUID.randomUUID().toString())
+                .build(); // again a function of employeeBuilder which is returning an instance of employee object
+   
+//request validation
+	some important status ports representations
+		2xx--status code that represent that request recieved without any issue
+			200- status ok(GET mappings)
+			201- status created/posted(POST mapping)
+			204- Service returned nothing 
+		3xx --these are basically redirections, not errors actually
+			
+		4xx --generally issues in the request comming from the client
+			400-bad request
+			401-Authentication
+			403-Autherization issue, forbiddden Access
+			404-resource not found
+			405-method not allowed(like post,get mappings)
+			419-Jso request payload is not correct
+		5xx -it's like an alarming for backend ddeveloper, service not working--(ALL the runtime exeptions will comes under 500)
+			500-internal server error
+			502-upstream not working
+			503-bad gateway
+			504-service unavailable
+	--> by default 200 and 500 are status ports showed by system whenever there is some issue..
+	
+	1)these are the validations which are on incoming requests, we have one more validation at database level while storing also
+	---> for validations we can use spring boot dependencies -->	"spring-boot-starter-validation"
+		then we can place any annotation like @NotBlank,@Min(18),@Max(60), @NonNull
+		
+		then to validate the incoming request from client we should include 
+		@Valid annotation -in the controller class for the respectice mapping(ex..POST or PUT mapping)
+		
+		
+//database intractions
+
+DDL
+--
+create 
+alter
+DML
+---
+insert 
+update 
+delete
+
+DQL --data query language
+---
+show 
+
+
+sql execution on the underlying DB
+	2 ways of executing queries
+		1) String sql = "INSERT INTO employee (id, name, age, department, address) VALUES ('" +
+					employee.getId() + "' , '" + employee.getName() + "' , '" + employee.getAge() + "' , '" +
+					employee.getDepartment().name() + "' , '" + employee.getAddress().toString() + "')";
+
+			Statement statement = this.connection.createStatement();
+			statement.execute(sql);
+			
+		-->1st way will execute query at compilation... if you execute 10 times the query also will execute 10 times	
+		
+		2)  String sql = "insert into employee (id, name, age, department, address) VALUES (?, ?, ?, ?, ?) ";
+
+			PreparedStatement statement = this.connection.prepareStatement(sql);
+
+			statement.setString(1, employee.getId());
+			statement.setString(2, employee.getName());
+			statement.setInt(3, employee.getAge());
+			statement.setString(4, employee.getDepartment().name());
+			statement.setString(5, employee.getAddress().toString());
+			statement.execute();
+		--> in the 2nd way while first time compilation it will store the query and it caches the query in it's memory..and from the next time it fecht from caches
+	
+	-->Disadvantages with naive queries appproach
+		1. conversion of java obect to a sql table-manually--which is more error prone
+			basically it is a ORM(Object Relational Mapping)
+		2.scalability.--> not scalable approach interms of attributes
+		3. Optimization
+		
+		so the above tasks are doing by framework..ORM(Object Relational Mapping)
+		
+	to overcome the above issues we have some frameworks exists..
+		1)Hibernate --> JPA(Java Persistance API) is an abstraction used to connect using Hibernate
+		2)Open JPA
+		3)Eclipse Link
+		4)Row Mapper
+		
+-->The data comming from frontend/client to the backend --VOLATILE storage
+	that we can store it in sever memory..so it has some adv and disadv
+		-->adv
+			We can retrieve data very faster.
+		-->Disadvantages
+			-->if server failures then the data will loss
+			--> Consistency
+		
+--> The data comming from frontend/client to the backend that we can store in DB --NON-VOLATILE storage which is more feasible
+	which will solve data loss issue
+	consistency issue when we have multiple servers
+SO here we seperated Business Logic and data storage..
+
+
+
+
+How to Push Your Spring Project to GitHub using Git Bash
+-----------------------------------------------------------
+This is the Steps to follow
+1. Create a new repository on GitHub. 
+2. Right-click on the project and choose ‘Show in Local Terminal’ - Git Bash
+3. (if you don’t see Git Bash, then install it)
+4. Initialize the local directory as a Git repository.
+$ git init
+5. Add the files in your new local repository. This stages them for the first commit.
+6. $ git add .
+7. # Adds the files in the local repository and stages them for commit.
+8. Commit the files that you've staged in your local repository.
+9. $ git commit -m "First commit"
+10. # Commits the tracked changes and prepares them to be pushed to a remote repository. 
+11. Go and copy your remote repository url (it ends in .git)
+12. In the Command prompt, add the remote repository url
+13. $ git remote add origin (remote-repository)
+14. $ git remote -v
+Verifies the new remote URL
+15. Push the changes in your local repository to GitHub.
+16. $ git push origin master
+
+
+
+
+Java Persistance API(JPA)
+-------------------------
+JPA is a contract/abstraction/methods which need to be implemented by some orm frameworks in rder to intract with underlying db's
+one of the most popular framework is hibernate
+Hibernate is a ORM framework/ it's a implemtatation of JPA..
+--> Handle the sessions with the underlying db's..JPA is the API specification only for the relational database..
+--> Execute queries like select,insert etc..
+--> It basically does the obect relational mapping..
+
+Spring Data(How db will intigrate with spring boot)
+=====
+When we talk about sql(Postgres,mysql,oracle,h2) we call it as data JPA
+no sql DB--Mongo DB, cassandra,dynamo,hbase -we can't group all the no-sql database under same group bcs each one has it own implemtatation...
+
+spring-boot-starter-data-jpa
+------------------
+this dependency is inheriting from spring data JPA
+spring-boot-starter-data-jpa -->is a spring boot specific dependency
+spring data JPA -->is a spring specific dependency which comes from spring-data-commons
+spring-data-commons --> is a common dependency which require for any db like sql or no-sql
+
+
+@Entity==> when we give this annotation on the object then that will be eligible for ORM and that table would be created in db..
+	Hibernate will create the table in db
+@Id ==> will eb used to define primary key in the table..we have 2 imoprts, we are using javax.persistance for relational db..
+	javax.persistance
+	org.springframework.data.annotation
+	-->for other no sql db we willl use org.springframework.data.annotation
+	
+AutoIncrement --in sql it will increase 1 value for each row that we are inserting in tables..
+this AutoIncrement can be achieved using @GeneratedValue() annotation
+
+GeneratedValue() have 4 Generationstrategies ways
+	1) Generationstrategy-AUTO(Hibernate will be generating the id for your record and that id passed to the underlying database)
+		in this case we have to specify AUTO_INCREMENT bcs the hibernate is generating the value..
+			Ex: create table book (id int AUTO_INCREMENT) 
+	2) Generationstrategy-IDENTITY(Underlying db will generate id for your record.)
+		in this case we no need to specify AUTO_INCREMENT bcs the underlying db will generate automatically..
+			Ex: create table book (id int)
+			
+-> Storing ENUM in DB 
+-----------
+ENUM --> enumeration
+@Enumerated() --> has a attribute known as value--> the default value is ORDINAL which will store as aa number
+	@Enumerated(value = EnumType.STRING) --> will store the value as string..
+	
+--> For createdOn,updatedOn values hibernate can create timestamp value by using @CreationTimestamp which is coming from org.hibernate.annotations.CreationTimestamp..
+	SO this value coming from Hibernate not from JPA..
+		    updatedOn -->@UpdateTimestamp
+			createdOn --> @CreationTimestamp
+
+
+@GetMapping,@PostMapping etc.. are newer way of defining api equests
+	these are having target tpe as METHODs
+	@Target({ElementType.METHOD})
+@RequestMapping()--> which is common endpoint for the controller..which is older way of defining api's.
+	example:
+		@RequestMapping(value = "/book",method = RequestMethod.GET)
+		public String getBookId(@RequestParam("id") int id){
+			return null;
+			}
+	->@RequestMapping which has target type on both ElementType and Method
+		@Target({ElementType.TYPE, ElementType.METHOD})
+	--> it is just way to define your endpoint
+		
+	
+	
+	
+@BookRepository
+	->JPARepository(interface) has call SimpleJPARepository<T,ID>	--> Also have findAll()--> which returns List<T>, most of the methods will restricted to List<T> type...
+		->PagingAndSorting  
+			->CrudRepository---> has methods save(), findAll()	--> here it will return Iterable<T>
+				->Repository
+					which will contain all the methods
+				
+						
+		Repository			|
+			|				|
+		CrudRepository		|==>spring-data-commons
+			|				|
+		PagingAndSorting	|
+			/     \
+		   /	   \
+	JPARepository	Mango repository,cassandra repository..	|  --> in addition to the contract of spring-data-commons.. JPARepository has its own funtions
+		/	\												|
+															|
+	   /	 \												|==>spring-data-jpa
+	@bookRepo 												|
+								
+	
+	
+	
+	
+JPARepository--> which is more slightly user centric means the functions defined here are developer can understand
+		->these functions are internally implemented by class know as SimpleJPARepository which makes a call to another 
+			interface known as EntityManager.
+		-> in EntityManager we have Persist(), merge() etc..these functions are implemented by Hibernate..
+
+==> SimpleJPARepository os responsible for creating bean of repository when we have interface like below..		
+		public interface BookRepository extends JpaRepository<Book,Integer> {
+
+		}	
+		
+		here BookRepository is object type of SimpleJPARepository 
+
+==>application.properties is a predefined preperties..then spring boot metadata file which containes 
+	some special properties..which can perform some specail tasks
+==> we can also define custom properties file
+
+==> spring.jpa.show-spl=true --> which is used to show the logs of sql in the console
+
+==> additional-spring-configuration-metadata.json -> it basically contains what are all values a property can contains..
+by default this hibernate.ddl-auto will be disabled for handling..
+	which has some values 
+		1.update ==>updtae the schema if necessary
+		2.create ==> create the schema and destroy the previous data.
+		3.create-drop ==>create and distroy the schema at the end of the session(once you stops the application)
+	so in general we can't use create,create-drop in reallife scenarios bcs as it is deleting the previous data..so below is the property we will use
+==>spring.jpa.hibernate.ddl-auto=update
+
+Primary key as AUTO
+==================
+internal fun of save()
+	hibernate persistance and merge..
+	->persist will always do insert..
+	->if ypu are passing id value manually then ==> this.em.merge() ///will do UPSERT-->update if present else insert..
+	
+AUTO -> the value increament will be taken care by Hibernate_Sequence..it will increament in order(increament by 1)	
+		irrespective of value you are passing..
+
+	if you use AUTO.. Hibernate is taking care ..
+		when you have multiple tables(entities) want to use ID value to increment.. Hibernate will increment each value irrespective of table
+			EX:;	below operations in sequential 
+				inserting row into book table -id 1
+				  inserting row into student table -id 2		
+				 insert row into book table -id 3 
+			if you clearly observe the book table id values are 1,3 etc.. not in regular order..
+		Hibernate is taking multiple network calls to increament id value in case of multiple tables..
+	
+IDENTITY--> when you use identity .. Hibernate will not increament and your DB will take of increamenting value based on table..
+			here each table order of inserting id values in order..
+			it doesnt make much network calls compared to AUTO..
+SO IDENTITY is the best option to use for GeneratedType
+
+Hibernate will have a uniform id generation irrespective DB you use..where as in IDENTITY -different DB will have different mechanisms to increament ID..
+
+--> In case of JBDC template we can just use AUTO_INCREMENT at table level..
+
+-->try to avoid using underscore and camel cases in api path, instead use hypen
+
+--> Hibernate will convert java object into tables like below
+	->camelCase --> replacing with _(underscore) incase of variables.
+	->upppercase--> will be in lowercase incase of table names
+writing external queries in JPA''
+---------------------------------
+-->JPQL query -Java Persistance Query Language
+	Format in which you write queries by keeping java obects into consideration
+		example: if class name is Book
+			then query is like select b from Book b;
+			
+		different ways to write queries
+		-----------------------------
+		    --> @Query("select b from Book b where b.bookCategory = :bc")
+			--> @Query("select b from Book b where b.bookCategory = ?1")
+-->Native query
+	Format in which you write queries keeping relational/sql table into consideration just like the queries that we qrite on mysql shell
+		ex: select * from book;
+		
+	    @Query(value = "select * from book b where b.book_category = :bc",nativeQuery=true)
+	--> In JPA repositories by default Native Query status will be false..for ay query that you are writing in your code..
+		so we have to pass parameter 'nativeQuery=true'
+			
+JPQL
+----
+	--> whenever you write a JPQL query that is parsed by the application at the application start-up..
+		then startup will be bit time consuming
+	-->W.R.T Queries==> Hibernate will convert from JPQL query to sql(native)queries(with very minimul time)
+	
+	-->OBSERVABILITY=>issues are at up-front--for any errors as it will find at application start-up..
+				so that u will not encounter 500 api errros bcs of syntax issues
+Native
+------
+	--> Navive queries are not parsed at application startup, so it will be slightly faster..
+	-->W.R.T Queries==> Hibernate will make DB call, it's just that it will not convert anything
+	--> we will not get to know whether query has syntax error or not at application start-up.
+	
+Queries with functionName-JPQL
+-------
+examples
+
+        return bookRepository.findByBookCategory(category);
+        return bookRepository.findByBookCategoryAndLanguage(category, Language.ENGLISH);
+        return bookRepository.findByBookCategoryAndLanguageAndPagesGreaterThan(category,Language.ENGLISH,300);
+
+
+==================================================
+
+Library Management System
+------------------------
+
+when we talk about entities that are required for LMS..
+1) defining the entities of the system
+	------------------------------------
+	we have Book,Student are as primary entities
+
+	Author is an secondary entity
+
+
+	We can define a relationship btn Author and Book in 2 ways..
+	Way1
+	------
+	1) Book table having AuthorName...
+		BookId	name category	AuthorName	AuthorCountry 	AuthorAge
+		------------------------------------------------------------
+		1		ABC		IT		Hemanth		Delhi				24
+		2		CDD		IT		Hemanth		Delhi				24
+		3		dfj		It		Hemanth		Delhi				24
+		4 		Java	It		stroup		Mumbai				24
+		
+	if you see above first 3 rows having same author detailss...
+	so we can define Author as seperate entity as well
+
+	way2
+	----
+	Book table
+		Id name 	category	AuthorId(Forgien key)
+	-----------	
+	Author table 
+		AuthorId(primary key) AuthorName AuthorCountry	AuthorAge	
+	----------
+	Above 
+
+	=======
+	-->So finally we can have Book,Student,Author, transaction(whenever we issue/return the book we will have this transaction details..)
+
+2)How the entities are related to each other.
+	in our usecase we make it simple like one author can write many books
+	author --> book
+	1  to  M
+	
+	--> Many books can issued to student..
+		Books(M) -> student(1)
+		
+	--> 1 to many for Book and transaction..
+	one Book can come in many transactions
+	
+	-->one student can have many transactions
+		student(1) -> transactions (many)
+
+3) Functionalities which every entity can emposes
+	
+	Book--> should be searchable
+		-->able to add book in the library
+		--> deleting , updating also we can include..
+		
+	Student--> Add a student in the library
+		-> update, delete the student
+		-> searchable (GET)
+	
+	Transaction --> issue a book, 
+				--> return a book
+				--> filter transaction history
+
+Index in sql's-> is a kind of storage in which dataa is sorted on a perticular column..either in ASC or DESC for fasr retrieval
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
