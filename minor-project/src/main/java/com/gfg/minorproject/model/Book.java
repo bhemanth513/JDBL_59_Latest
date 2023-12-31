@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,8 +23,17 @@ public class Book {
     @Enumerated(value = EnumType.STRING)
     private Genre genre;
     private Integer pages;
-    @Enumerated()
-    private Author author;
+
+    @ManyToOne
+    @JoinColumn
+    private Author my_author;
+
+    @ManyToOne
+    @JoinColumn
+    private Student my_student;
+
+    @OneToMany(mappedBy = "my_book")
+    private List<Transaction> transactionList;
 
     @CreationTimestamp
     private Date createdOn;

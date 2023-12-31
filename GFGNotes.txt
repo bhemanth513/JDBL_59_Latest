@@ -1204,14 +1204,37 @@ when we talk about entities that are required for LMS..
 
 Index in sql's-> is a kind of storage in which dataa is sorted on a perticular column..either in ASC or DESC for fasr retrieval
 
+---> while writing up relations like @ManyToOne.
+	->FirstPart = the entity in which you are writing this part 
+	->secondPart = entity on the top of which you are writing this annotation.
+
+@JoinColumn => it will make the primarykey of one table into forieng key for another table..
+
+we have two types for java obects in JPA
+	1) uni-directional ==> here we usually give like @ManyToOne.
+		->@ManyToOne
+		->@JoinColumn
+	2) bi-directional ==> in bi-directional it is like backward reference.. so we have @OneToMany
+		->@OneToMany(mappedBy = "my_author")  //ypu don't need to create a new column for bookList in the author table..it is a back-reference
+	
+	the advantage is we can get details on the bothe ways
+		ex:Get Author details given an author id..
+			select * from Author where id = ? -> i returns author details
+			select * from book where auth_id = ? -->it returns list of books 
+
+	Here Author is parent table and Book is child table...
+	if you want only parent detials go ahead with uni-directional 
+	if you want child details as well along with your parent then go with bi-directional..
 
 
+ACID properties
+==============
+Atomicity => Every statement that is executed is consider to be automic
+Consistency ==> After any number of operations also the system should be in consistance state..
+Isolation  => whatever operations that you are executing that should not impact ay other entities in the system..
+Durability
 
-
-
-
-
-
+@Transactional -> either everything will be executed or nothing will be executed..
 
 
 
