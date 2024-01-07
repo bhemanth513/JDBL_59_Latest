@@ -1,0 +1,29 @@
+package com.gfg.minorproject.controller;
+
+import com.gfg.minorproject.model.Student;
+import com.gfg.minorproject.model.TransactionType;
+import com.gfg.minorproject.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class TransactionController {
+
+    @Autowired
+    TransactionService transactionService;
+
+    @PostMapping("/transaction/issue")
+    public String issueTrans(@RequestParam("bookName") String bookName,
+                             @RequestParam("studentId") Integer studentId
+                             ) throws Exception {
+        return transactionService.issue_txn(bookName,studentId);
+    }
+
+    @PostMapping("/transaction/return")
+    public String returnTxn(@RequestParam("bookId") Integer bookId, @RequestParam("studentId") Integer studentId) throws Exception {
+        return transactionService.return_txn(bookId,studentId);
+    }
+}

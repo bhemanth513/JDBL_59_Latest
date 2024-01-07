@@ -1276,22 +1276,6 @@ we are using email column in author table to uniquly identity author daata..
 -> webSockets (pubNub) will be used to send both side commuications
 -> RestAPI is client-server communication only(one way)
 
-
-Transaction steps in mini -project
--------------
-->Issuance
-	1.create a transaction with pending status
-	2. get the book details and student details
-	3. validate
-	4. assign book to that perticular student //update book set student id = ?
-	5. update the transaction accordingly with status as SUCCESS or FAILURE
--->Return
-	1.create a transaction with pending status
-	2.checkthe due date and correspodnngly evaluaate the fine
-	3.unassign the book from student //UPDATE Book table set student_id null
-	4. update the transaction accordingly with status as SUCCESS or FAILURE
-
-
 FetchType working if you are returning a model
 ------------------
 FetchType.LAZY = it doesn't pull data from child tables --it is default type. but we can't relay on it whether it works oe not as it is fetching lazily
@@ -1299,11 +1283,43 @@ FetchType.EAGER = it will try to fetch from the data from all the tables(parent 
 
 
 
+Transaction steps in mini -project
+-------------
+->Issuance
+	1. get the book details and student details
+	2. validate
+		check if no.of books issued to student exceeded or not
+		check fee limit eceeded or not 
+	3.create a transaction with pending status
+	4. assign book to that perticular student //
+			//checking whether book is available or not
+			//@Query("update Book b set b.my_student = ?2 where b.id = ?1 and b.my_student is null")
+				void assignBookToStudent(int bookId, Student student);
+	5. update the transaction accordingly with status as SUCCESS or FAILURE
+-->Return
+	1.search whether the book is available ot not
+	//validation
+        //if book is available in the library or if book is not assigned to  student
+	2.create a transaction with pending status
+	3.checkthe due date and correspodnngly evaluaate the fine
+		getting the correspoding issue transaction.....
+			select * from tranx where b =? and student ? and status=success and type = ISSUE order by time DESC LIMIT 1 ==>
+				=> from here we can get transaction time
+				=> so we can do transaction_time -max limit to calculate fine
+	
+	4.unassign the book from student //UPDATE Book table set student_id null
+	5.update the transaction accordingly with status as SUCCESS or FAILURE
 
 
 
+==> JPQL queires wont's have @Transactional annotation by default.. so we have to include specifically  //for updating any data
+==>@Modifying ==> is required when ever you are doing any update ///this is for DML support 
+
+
+->Why hibernate update the data even we get exception for not providing @Transactional or @Modifying annotation?
 
 
 
+findTopByStudentAndBookAndTransactionTypeAndTransactionStatusOrderByTransactionTimeDesc
 
-
+findTopByStudentAndBookAndTransactionStatusAndTransactionTypeOrderByTransactionTimeDesc

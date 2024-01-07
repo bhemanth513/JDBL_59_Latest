@@ -28,12 +28,12 @@ public class Student {
     @UpdateTimestamp
     private Date updatedOn;
 
-    @OneToMany(mappedBy = "my_student")
-    @JsonIgnoreProperties({"my_student"})
+    @OneToMany(mappedBy = "student")
+    @JsonIgnoreProperties({"student"})
     private List<Book> studentBookList;
 
-    @OneToMany(mappedBy = "my_student")
-    @JsonIgnoreProperties({"my_student"})
+    @OneToMany(mappedBy = "student")
+    @JsonIgnoreProperties({"student"})
     private List<Transaction> transactionList;
 
     private Date validity;

@@ -33,10 +33,10 @@ public class Book {
     @ManyToOne
     @JoinColumn
     @JsonIgnoreProperties({"studentBookList"})
-    private Student my_student;
+    private Student student;
 
-    @OneToMany(mappedBy = "my_book",fetch = FetchType.EAGER )
-    @JsonIgnoreProperties({"my_book"})
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER )
+    @JsonIgnoreProperties({"book"})
     private List<Transaction> transactionList;
 
     @CreationTimestamp

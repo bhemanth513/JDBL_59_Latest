@@ -5,15 +5,14 @@ import com.gfg.minorproject.dto.SearchBookRequest;
 import com.gfg.minorproject.model.Author;
 import com.gfg.minorproject.model.Book;
 import com.gfg.minorproject.model.Genre;
+import com.gfg.minorproject.model.Student;
 import com.gfg.minorproject.repository.AuthorRepository;
 import com.gfg.minorproject.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -26,13 +25,22 @@ public class BookService {
 
     @Autowired
     AuthorService authorService;
-
+    //this is controller func
     public Book addBook(CreateBookRequest createBookRequest) {
         Book book = createBookRequest.to();
         //getting Author details and saving in DB if not already exists
         Author author = authorService.createOrGet(book.getMy_author());
         book.setMy_author(author);
         return bookRepository.save(book);
+    }
+    //this will call from transaction
+    public void assignBookToStudent(Book book, Student student){
+         bookRepository.assignBookToStudent(book.getId(),student);
+    }
+
+
+    public void unAssignBookToStudent(Book book) {
+        bookRepository.unAssignBookToStudent(book.getId());
     }
 
     public Book getBookById(Integer id) {
@@ -55,10 +63,13 @@ public class BookService {
         if(!isValidRequest){
             throw new Exception("Invalid Request");
         }
-        List<Book> resultBookList = null;
+        List<Book> resultBookList;
         //String sql = "select b from Book b where searchKey searchVal searchOperator";
         switch (searchBookRequest.getSearchKey()){
             case "name":
+                if(searchBookRequest.isAvailable()){
+                    resultBookList = bookRepository.findByNameAndStudentIsNull(searchBookRequest.getSearchVal());
+                }
                 resultBookList = bookRepository.findByName(searchBookRequest.getSearchVal());
                 break;
             case "genre":
@@ -73,4 +84,5 @@ public class BookService {
         }
         return resultBookList;
     }
+
 }
