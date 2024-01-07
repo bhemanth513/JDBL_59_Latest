@@ -1237,23 +1237,65 @@ Durability
 @Transactional -> either everything will be executed or nothing will be executed..
 
 
-
+UnsavedTansient Instance
+	Java query.. hibernate exception
+foreign key constriant violation
+	underlying db exception..
 	
 	
+1)Find author details who has written book b1..
+	
+	select a.* from minor_project.author a, minor_project.book b where b.id = 1 and a.id = b.my_author_id;
+
+2)Find all the books written by author name hemanth
+	
+	select b.* from minor_project.author a, minor_project.book b where a.name = 'Hemanth' and a.id = b.my_author_id;
+
+
+@Column(unique = true,nullable = false)
+private String email;
+
+we are using email column in author table to uniquly identity author daata..
 	
 	
+==> while deleting or updating tables which has parent,child relationships..
+	By default in JPA joins
+		if we delete child table record -> parent is restricted
+		if we want we can cascade delete -->means if child table all records deleted then it will delete parent table record
 	
 	
+==>Stackoverflow errors in java will come basically because of infinite loop or some process executing infinitely..
+		--> in JPA we basically implemented by-directional relation between the tables..if we make it uni directional we can resolve abve issue in one way
+		
+		--> in another way, we can ignore some json properties.. by using @JsonIgnoreProperties annotation..
+			--> @JsonIgnoreProperties comes from @JacsonAnnotation whic is coming from spring web-> spring web comes from spring boot starter web
+						@JsonIgnoreProperties({"booklist"})  --> forward ignoring json
+						@JsonIgnoreProperties({"my_author"}) --> backward ignoring json
 	
 
+-> webSockets (pubNub) will be used to send both side commuications
+-> RestAPI is client-server communication only(one way)
 
 
+Transaction steps in mini -project
+-------------
+->Issuance
+	1.create a transaction with pending status
+	2. get the book details and student details
+	3. validate
+	4. assign book to that perticular student //update book set student id = ?
+	5. update the transaction accordingly with status as SUCCESS or FAILURE
+-->Return
+	1.create a transaction with pending status
+	2.checkthe due date and correspodnngly evaluaate the fine
+	3.unassign the book from student //UPDATE Book table set student_id null
+	4. update the transaction accordingly with status as SUCCESS or FAILURE
 
 
-
-
-
-
+FetchType working if you are returning a model
+------------------
+FetchType.LAZY = it doesn't pull data from child tables --it is default type. but we can't relay on it whether it works oe not as it is fetching lazily
+FetchType.EAGER = it will try to fetch from the data from all the tables(parent and child tables) that are associate in that perticual logic 
 
 
 

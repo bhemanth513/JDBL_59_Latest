@@ -1,5 +1,6 @@
 package com.gfg.minorproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,9 +29,11 @@ public class Student {
     private Date updatedOn;
 
     @OneToMany(mappedBy = "my_student")
+    @JsonIgnoreProperties({"my_student"})
     private List<Book> studentBookList;
 
     @OneToMany(mappedBy = "my_student")
+    @JsonIgnoreProperties({"my_student"})
     private List<Transaction> transactionList;
 
     private Date validity;

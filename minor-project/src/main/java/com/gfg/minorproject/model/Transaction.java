@@ -1,6 +1,7 @@
 package com.gfg.minorproject.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,10 +37,12 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnoreProperties("{transactionList}")
     private Student my_student;
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnoreProperties("{transactionList}")
     private Book my_book;
 
     private Double fine;
