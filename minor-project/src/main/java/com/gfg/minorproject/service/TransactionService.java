@@ -1,6 +1,8 @@
 package com.gfg.minorproject.service;
 
 import com.gfg.minorproject.dto.SearchBookRequest;
+import com.gfg.minorproject.exception.BookLimitExceededException;
+import com.gfg.minorproject.exception.BookNotFoundException;
 import com.gfg.minorproject.model.*;
 import com.gfg.minorproject.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class TransactionService {
     @Value("${student.issue.number_of_days}")
     private int book_issue_days_limit;
 
-    @Value("${student.issue.max_books}")
+    @Value("${student.issue.max_books}:3")
     private int max_book_limit_issuance;
 
     @Autowired
@@ -100,11 +102,11 @@ public class TransactionService {
         Student student = studentService.getStudentById(studentId);
         //2. validate
         if(student.getStudentBookList()!=null && student.getStudentBookList().size()>=max_book_limit_issuance) {
-           throw new Exception("Maximum book limit reached!");
+           throw new BookLimitExceededException("Maximum book limit reached!");
         }
 
         if(bookList.isEmpty()){
-            throw new Exception("Not able to find the requested book!");
+            throw new BookNotFoundException("Not able to find the requested book!");
         }
 
         Book book = bookList.get(0);
@@ -118,7 +120,7 @@ public class TransactionService {
                 .build();
         transaction = transactionRepository.save(transaction);
 
-        //	4. assign book to that perticular student //update book set student id = ?
+        //	4. assign book to that particular student //update book set student id = ?
         try {
             book.setStudent(student);
             bookService.assignBookToStudent(book,student);
