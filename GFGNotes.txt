@@ -1319,7 +1319,230 @@ Transaction steps in mini -project
 ->Why hibernate update the data even we get exception for not providing @Transactional or @Modifying annotation?
 
 
+JUNIT TESTCASSES
+-------------------
+when we to test our business logic with lot of flexibility and robustness the best option is using JUNIT and MOCKITO
 
-findTopByStudentAndBookAndTransactionTypeAndTransactionStatusOrderByTransactionTimeDesc
+importing dependencies--
+	->Junit
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+		</dependency>
+	->MOCKITO
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
 
-findTopByStudentAndBookAndTransactionStatusAndTransactionTypeOrderByTransactionTimeDesc
+
+@RunWith()  --> used to tell how you want to execute your testcase
+
+Junit -> is analogous to your springBootStarterTest, a dependency which is used to execute testcases
+Mockito -> is a framework which used to create or inject mocks..
+Mock -> is nothing but dummy object created for u.
+
+--> MockitoJUnitRunner class -> which we can use to run to create your mock using mockito dependencies and execute using junit dependencies..
+	tells about how you want to execute your testcasses
+
+	test casses we have to write for happy flows and edge casses..
+
+
+-->  @InjectMocks => it is just like @Autowired
+
+@InjectMocks willl be used for the class that you want to write the test casses i.e. actual object 
+	-> if that class has any other class dependencies we will just mock those objects..by using @Mock whcih has object type <class><MockitoMock$..> 
+		and associate the mock with actual object created by InjectMocks..
+	
+	Example: in our code we are going to write Unit test cases for TransactionService
+		-> we will define this class as  
+			@InjectMocks
+			TransactionService transactionService;
+		-> transactionService has some dependencies like studentService,bookService.. so we will use @Mock to define these dummy objects of type <class><MockitoMock$..>  
+==> in unit testcase we usually test the logic not the data
+Mockito.any() ==> we can use when we don't sure on returning object 
+Mockito.Int(),Mocito.String() etc.. we can use whenever we need to be specific and knows what that function returns..
+
+
+cheecks for testcases correctness
+1)Assertions
+2)verifications --> How many times a perticular function has been called from your service
+
+
+code coverage --> what are all scenarios in a perticual function..
+Code Coverage
+------------
+-> the testcasses that will cover entire code base 
+
+
+Caching
+--------
+
+--------
+Disk  -->1TB or 2TB generally 
+Memory(RAM) --> 8GB or 16GB
+CPU --> around in mb's
+-------
+
+system ==> app server ==> db server
+
+we introduce a layer between app server and db server..to sore data i.e..caching layer..
+
+caching is used to store data in memory..in caching retrieval is faster than db. so that it will return data faster to client system
+
+local caching:
+--------------
+the data wil be stored in the machine of same server..
+both app server and caching servers are resides in same hardware
+ADV: -Fastest retrieval..as it is in the same machine
+	-we no need to make network call..if data not found in the cache only it will callto DB
+DISADV: -Inconsistency-
+
+Distributed caching
+---------------
+cache server will not present in the same server..
+cache server willl reside in seperate ip address/different instance.so there will be network call associated to call cache
+in the same if data not found in the cache it will make call to DB..
+
+
+In case of social media networs and video streaming platforms they will use UDP implemtatation..
+which not use cache concepts here..
+they are mostly dependent on CAP theorem
+CAP--Consistency, Availability, Partition tolerence
+	at the same time any two features of CAP only happens for the applications..means need to compromise availability or consistancy..
+		ex: Bank applications,healthcare applis.. can't compromise on consistancy..they can compromise on availability..
+			apps like utube,facebook etc.. can compromise on consistancy but not on availability..
+		
+--> Load Balancer will route the requests to different servers that are configured to the application..
+	Generally it uses Round Robbin technique to toute the requests to servers, sometimes it is also depends on domain specific..
+	-->it also have the servers health information whether that server can handle more requests or not / it about to die..
+	-->if the server is not responding for certain period then load balancer will assume that server is not in proper health condition then 
+		load balancer will slow down the sending of no.of requests to that server
+	
+--> Redis is caching framework that we use in spri boot appplications..
+	we will see how we can integrate redis from our spring boot application
+	
+-> there are other types of caching mechanisms like memcache,aws cache(elastic) 
+
+
+
+Redis
+---------------
+-> ever frmawork has client and server .. like that redis also have their own client and server..
+
+-> redis has default port 127.0.0.1:6379.
+
+-->Redis is nothing but no-sql DB or cache server which stores the data in memory instead of storing in disk..
+
+-->set k1 v1
+
+--> we can avoid backups
+-->even in case of backups how it will store snapshots like compressed zip 
+-> while redis server is running it will store data in memory and once you shutdown it will store in the disk..once u restart it will fetch from disk
+
+-->in memory ops-fast access
+-->snapshots on disk t avoid data loss
+--> Redis is a distributed cache	
+--> redisis an open source community..
+-->it can be adaptable with any programming language
+
+Data types in Redis..
+	redis only has string datatype..it stores the data in the form of key-value pair..
+	
+	key -is string (max size can be 512mb)
+	value - data structure. can be String, List<String>, set<String>, hashMap<string,string>
+
+ttl(time to leave)
+
+	ttl = -1 ->it will never expire..
+	ttl >= 0it will expire
+	
+	ttl= -2 means aalready expired
+	otherwise there is some positive value which will not expire
+	
+	pexpire k3 50000 --> which will expire after 50k milliseconds
+
+	expireat k1 17004576=>
+
+	setex person::1 30 RAM
+	
+	keys * 
+	
+	get k2
+	
+	incr k2
+	
+	decr k2 for decreasing value
+
+list
+	list will be created when u insert the first element
+	
+	lpush jdbl59 hemanth-->will insert value from left of the list
+		o/p: 1
+	lrange jdbl59 0 0-> expects key to given ,starting point and stop
+		o/p: "Hemanth"
+	lpush jdbl59 gopi
+		0/p: 2
+	lrange jdbl59 0 1
+		o/p: "Gopi","Hemanth"
+	rpush jdbl59 jyo --> will insert the value from right.
+	
+	lrange jdbl59 0 -1 --> 0 to last ele in the list
+	
+	lpop jdbl59  --> first vaalue from the list will be deleted
+	
+	rpop jdbl59 2 --> from last 2 names will be deleted
+	
+	linsert jdbl59 before dhanraj nikita -> nikita will be insert before dhanraj
+hash
+	hset person::bilal name "Md bilal" --> hash set with keyname person and name as field in the map with value Md bilal
+	hset person::bilal country India age 20
+	
+	hget person::bilal 	name -->get the value for the name field
+		o/p:"Md bilal"
+	hgetall person::bilal -> to get all fields
+		o/p: 1)"name"
+			2)"Md bilal"
+			3)"country"
+			4)"india"
+			5)"age"
+			6) "20"
+
+	hmset person::hemanth -> whicch will insert another key in person map
+	hdel person:: Md bilal age  --> it will delete age field
+	
+	
+	
+	
+--> Redis is signle threaded implemtatation only
+--> In Redis there is no concept of primary key..where as it is key-value pair
+---> when we integrate with springbooot with redis
+	WE usually use 2 drivers
+		lettuce
+		Jedis
+	right now lettuce is the default driver choice for redis spring-boot config
+
+	spring-data-starter-redis
+		spring data-redis -->
+		lettuce-core
+		
+value
+	key = prefix+personId  -->person
+List 
+	key = constant/prefix  ->[person1,person2...]
+Hash
+	key = prefix+person_id --> {id: <value>, name:<value>,<field3>:<value3>....}
+	//Per
+	
+	
+	
+	
+	
+	
+Security
+-------------
+Authentication
+	Allow requests only from those entities which are valid part of the systems
+
+Autherization	
+	when somebody doesn't have authority to carry out a task, he/she set to be a unautherized..
