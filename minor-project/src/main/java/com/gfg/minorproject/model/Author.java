@@ -2,10 +2,10 @@ package com.gfg.minorproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class Author {
     private Date addedOn;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "my_author",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "my_author",cascade= CascadeType.ALL)
     @JsonIgnoreProperties({"my_author"})
     private List<Book> bookList;
 }

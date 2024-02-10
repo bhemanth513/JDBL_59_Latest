@@ -1,8 +1,8 @@
 package com.gfg.minorproject.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.*;
 
 @Getter

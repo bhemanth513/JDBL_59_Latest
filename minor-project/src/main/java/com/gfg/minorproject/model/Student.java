@@ -1,11 +1,11 @@
 package com.gfg.minorproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -37,4 +37,10 @@ public class Student {
     private List<Transaction> transactionList;
 
     private Date validity;
+
+    @OneToOne
+    @JoinColumn
+    @JsonIgnoreProperties(value = {"admin"})
+    SecuredUser securedUser;
+
 }

@@ -4,10 +4,10 @@ import com.gfg.minorproject.dto.CreateBookRequest;
 import com.gfg.minorproject.dto.SearchBookRequest;
 import com.gfg.minorproject.model.Book;
 import com.gfg.minorproject.service.BookService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -36,7 +36,7 @@ public class BookController {
         return bookService.search(searchBookRequest);
     }
 
-    @PostMapping("/books")
+    @PostMapping("/book")
     public Book addBook(@RequestBody @Valid CreateBookRequest createBookRequest){
         return bookService.addBook(createBookRequest);
 

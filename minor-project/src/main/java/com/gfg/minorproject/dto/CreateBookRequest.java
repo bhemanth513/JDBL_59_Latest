@@ -3,9 +3,10 @@ import com.gfg.minorproject.model.Author;
 import com.gfg.minorproject.model.Book;
 import com.gfg.minorproject.model.Genre;
 import com.gfg.minorproject.model.Student;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter

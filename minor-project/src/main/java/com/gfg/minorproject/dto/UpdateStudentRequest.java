@@ -1,9 +1,9 @@
 package com.gfg.minorproject.dto;
 
 import com.gfg.minorproject.model.Student;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 

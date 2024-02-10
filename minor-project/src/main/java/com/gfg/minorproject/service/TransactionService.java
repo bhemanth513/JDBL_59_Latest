@@ -24,7 +24,7 @@ public class TransactionService {
     @Value("${student.issue.number_of_days}")
     private int book_issue_days_limit;
 
-    @Value("${student.issue.max_books}:3")
+    @Value("${student.issue.max_books}")
     private int max_book_limit_issuance;
 
     @Autowired

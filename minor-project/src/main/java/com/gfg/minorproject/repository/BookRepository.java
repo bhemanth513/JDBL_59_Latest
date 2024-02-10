@@ -4,10 +4,10 @@ package com.gfg.minorproject.repository;
 import com.gfg.minorproject.model.Book;
 import com.gfg.minorproject.model.Genre;
 import com.gfg.minorproject.model.Student;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
