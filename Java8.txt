@@ -1,0 +1,21 @@
+why Java8
+========
+improving application perfromance without any specific work or tuning
+
+Lambda Expressions,Stream API, the new methods on existing classes are some of the key productivity improvments
+
+new Optional type gives developers significant flexibility when dealing with the null values, reducing the likelihood of NPE issue..
+
+changes in JAVA8
+==========
+->fewer lines of code 
+	readable and concise
+->Lambda expressiions
+->Fuctional Interfaces
+
+==>why lambda?
+() 			-> 			()
+|
+input		token		body
+
+==> 

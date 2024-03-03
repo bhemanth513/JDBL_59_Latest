@@ -1,6 +1,7 @@
 package com.gfg.minorproject.controller;
 
 import com.gfg.minorproject.dto.CreateStudentRequest;
+import com.gfg.minorproject.dto.StudentResponse;
 import com.gfg.minorproject.dto.UpdateStudentRequest;
 import com.gfg.minorproject.model.SecuredUser;
 import com.gfg.minorproject.model.Student;
@@ -34,12 +35,20 @@ public class StudentController {
     }
 
     @GetMapping("/details")
-    public Student getStudent(){
+    public StudentResponse getStudent(){
         //this app return the student details who is calling this api from security context
         Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
         SecuredUser securedUser = (SecuredUser) authentication.getPrincipal();
-        return studentService.getStudentById(securedUser.getStudent().getId());
+        return studentService.getUsingCache(securedUser.getStudent().getId());
     }
+    //for caching
+//    @GetMapping("/cachedetails")
+//    public StudentResponse getStudentResponse(){
+//        //this app return the student details who is calling this api from security context
+//        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+//        SecuredUser securedUser = (SecuredUser) authentication.getPrincipal();
+//        return studentService.getUsingCache(securedUser.getStudent().getId());
+//    }
     @GetMapping("/all")
     public List<Student> getStudents(){
         return studentService.getStudents();

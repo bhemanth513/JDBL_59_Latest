@@ -966,7 +966,7 @@ spring-data-commons --> is a common dependency which require for any db like sql
 @Id ==> will eb used to define primary key in the table..we have 2 imoprts, we are using javax.persistance for relational db..
 	javax.persistance
 	org.springframework.data.annotation
-	-->for other no sql db we willl use org.springframework.data.annotation
+	-->for other no sql db we will use org.springframework.data.annotation
 	
 AutoIncrement --in sql it will increase 1 value for each row that we are inserting in tables..
 this AutoIncrement can be achieved using @GeneratedValue() annotation
@@ -1770,3 +1770,222 @@ Integrating spring security in minor-project -1
 	
 SecurityContext => is similar to ApplicationContext..manages session related information
 SecurityContext stores the UserDetails info and JsessionId which is comming from frontend
+
+
+
+OAUTH 2.0
+================
+
+
+
+Kafka
+===============
+
+
+Prodeucer/Publisher/source of daata
+kafka server/broker/bootstrap server
+consumer/subscriber/target/sink of data.
+
+currenlty rabbit-mq and kafka are most popular frameworks used for messeging system..
+-->in video streaming system, stock management system using kafka is not a good way bcs of it's small latency time
+
+-> client-server architecture--
+	publisher-consumer
+-> two way communication architecture--pubNub..example. trading system.. 
+
+==> kafka used in many companies like UBER,LinkedIn,Netflix,Walmart
+==>kafka is developed by LinkedIn..it uses kakfa to send posts by customer so that who ever subscribed to that person will get notified
+=> UBER use case is--dealing with prize fluctuations when there is a demand
+
+=> when u install a kafka it will install Zookeeper by default..
+-> Zookeeper is basically dependency for java 
+
+=>Zookeeper is a configuration management system for kakfa..
+
+-> Kafka is highl distributed and fault tolerence due to its distributed broker management system..
+
+
+producer --------> broker1, broker2,...broker ---> consumer
+					|
+					Zookeeper1..ZK2...
+					
+-> when kafka server wants to know what are all topics are there it goes to the zooker to get that information..
+
+broker.id=0 ==> The id of the broker. This must be set to a unique integer for each broker.
+
+socket.send.buffer.bytes=102400==>100kb  ==> The send buffer (SO_SNDBUF) used by the socket server..
+
+=> kafka works on the principle of logs..
+=> num.partitions=1 => The default number of log partitions per topic. More partitions allow greater parallelism for consumption,
+						but this will also result in more files across the brokers.
+=> msg's in a partition can be consumed by only 1 consumer in the consumer group.
+
+=> log.retention.hours=168 ==> The minimum age of a log file to be eligible for deletion due to age
+
+=>zookeeper.connect=localhost:2181 ==>zooker will connect in the given host
+
+=> zookeeper.connection.timeout.ms=18000 =>Timeout in ms for connecting to zookeeper
+
+=>messages in one partition can only be consumed by one consumer in a consumer group
+	
+	if we have only one partition and more than one consumer in the same group.. only one consumer can read messages from that partition..
+	another consumer in the group sitting idle.. so basically it iss not the correct way.
+	
+	so no.of consumers in the consumer group should be <= the no.of partitions
+
+	==> --bootstrap-server localhost:9092 -describe --topic topicname
+
+How to scale up a topic?
+--------
+partitions are always created at the topic level..it is not at the broker level
+
+
+->each partition can run its own consumer in a signle consumer group..
+
+-> Partition strategy specified by producer
+	Default strategy: hash(key)%no.of partitions
+	no key -Round Robin
+	
+->kafka cluster will have no.of brokers
+-> in each broker msg will store in the form of queues.. each queue is related to a topic
+-> replecation facor means that how many times you are replecating a single data
+
+--> replecation is aat the partition level not at the topic level in a broker..
+-> every consumer will have one leader
+
+-> logs will generate based on the topic with partition.. for each partiition one folder will create 
+
+
+
+-> steps to create a new broker on the same node/locala host --> just for testing purpose
+
+	1) create a new server.properties similar to the original one
+		1) change broker id..
+		2) change the port
+		3) change the log dir 
+	2)start new kafka server
+	
+-> so kakfa is very efficeint in distributing the laod into equal partition..
+
+--> 1)How PubSub mechanism works
+	2)Whether consumer polls the data or broker pushes the data to the consumer.
+	3)What is partitioning
+	4)Replication
+	5)Consumer Groups
+	6)Zookeeper
+	7)Producing with key i.e. ordering of msgs
+	8)Scaling a new topic i.e. adding new partitions
+	9)Producer guarantee
+	
+	
+Ewallet App-Major Project
+=======================
+1. User should be able to send money to other user 
+2. On successful transactions, the users wallet should be updated accordingly..
+3.On successful transactions, we should notified the user about these
+
+
+UserService
+Transaction Service
+Wallet Service
+Notification Service
+
+==Requirements==
+1)Whenever a user is onboarded, we will create their wallet with some promotional balance 10rs.
+2) User should be able to transact..accordingly their wallet will be updated
+
+
+-> user service will create the user then wallet service consume user to create wallet for user
+-> wallet service
+-> 
+
+
+USER Onboarding -> wallet creation
+User Doing transactions(Txn Service) ->wallet updatesTxn service to complete transaction
+txn complete -> notify the end users via email
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Docker slides : https://docs.google.com/presentation/d/1w4UCwwvQJw9vQe1ssCUPP55TblGOl3WhWrS1Q30kODw/edit#
+
+Redis labs / Redis on cloud : https://app.redislabs.com/ Redis university: https://university.redis.com/
+
+Assignments
+
+Basic core Java - https://docs.google.com/document/d/1YMig3AVLglOgQVWFmt93ZtdvndiRRfowexAmPpUGeP0/edit
+DS Algo in Java - https://docs.google.com/document/d/1gUQSdwxdw6f4DJRO0W92tziih86tTt06fWl7L-V852g/edit
+Streams and Lambdas - https://docs.google.com/document/d/1AAlORAmRz-m_aaviZ_k4DgbbbLNzlrn3mV8ayaxgKOg/edit
+Assignment Solution
+
+Basic core java - https://docs.google.com/document/d/166Zv24JnGhzYvCQN1ND5M2aOahE1B0yoaLwh7ogawco/edit?usp=sharing
+DS Algo in Java - https://github.com/piyush5807/JBDL-33/tree/master/DS%20Algo%20Assignment/src/com/example
+Streams and lambdas - https://drive.google.com/file/d/17JxrPOt0JzIyb-JoVoMAuCu1U773iff0/view?usp=sharing
+Quizes
+
+Streams - https://forms.gle/nenVZ2AdqGpdSzid6
+Multi Threading - https://forms.gle/3YqgZk1gdCSm15A36
+Maven - https://forms.gle/ZNKZ5keD2yFfeiHU9
+Lecture Wise Notes: https://drive.google.com/drive/folders/1rOtQ8mCv4qWtGBwIvxo2UkArlZnASgEa
+
+Java
+
+Download - https://www.oracle.com/in/java/technologies/javase-downloads.html
+Resources - https://www.baeldung.com/ , https://www.youtube.com/channel/UCYt1sfh5464XaDBH0oH_o7Q
+Postman
+
+Download - https://www.postman.com/downloads/
+Resources - https://learning.postman.com/docs/getting-started/introduction/
+Maven
+
+Download - https://maven.apache.org/install.html
+Resources - https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+Spring Basics
+
+Resources - https://www.baeldung.com/ , https://docs.spring.io/spring-framework/docs/current/reference/html/
+MySQL
+
+Download - https://www.mysql.com/downloads/
+Resources - https://www.mysqltutorial.org/
+MongoDB
+
+Download - https://www.mongodb.com/try/download/shell
+Resources - https://docs.mongodb.com/
+Redis
+
+Download - https://github.com/microsoftarchive/redis/releases/tag/win-3.2.100 (windows) , https://redis.io/download
+Resources - https://redis.io/
+Kafka
+
+Download - https://kafka.apache.org/downloads
+Resources - https://kafka.apache.org/quickstart
+Miscellaneous links
+
+Multi Threading - https://www.baeldung.com/java-concurrency
+Streams + Lambdas - https://link.medium.com/pwFwKG1Grqb, https://link.medium.com/1tyR6i3Grqb, https://www.youtube.com/watch?v=1OpAgZvYXLQ, https://www.youtube.com/watch?v=F73kB4XZQ4I
